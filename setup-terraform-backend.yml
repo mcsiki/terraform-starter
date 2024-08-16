@@ -1,0 +1,26 @@
+trigger: none
+pr: none
+
+variables:
+- group: terraform-basic-variables
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: $(serviceConnectionName)
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az group create --name $(resourceGroupName) --location $(location)
+      az storage account create --name $(storageAccountName) --resource-group $(resourceGroupName) --location $(location)
+      az storage container create --name $(storageContainerName) --account-name $(storageAccountName)
+  displayName: 'Provision Terraform Backend storage'
+
