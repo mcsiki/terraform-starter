@@ -44,7 +44,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    environmentServiceNameAzureRM: 'dev'
+    environmentServiceNameAzureRM: $(serviceConnectionName)
 
 - task: TerraformTaskV4@4
   displayName: 'Apply'
@@ -52,4 +52,4 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    environmentServiceNameAzureRM: 'dev'
+    environmentServiceNameAzureRM: $(serviceConnectionName)
