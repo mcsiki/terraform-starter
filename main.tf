@@ -10,4 +10,5 @@ backend "azurerm" {}
 
 provider "azurerm" {
   # Configuration options
+  features {}
 }
