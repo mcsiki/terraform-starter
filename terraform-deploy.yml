@@ -4,13 +4,15 @@
 # https://aka.ms/yaml
 
 trigger:
-  - main
-  - '*'
+  branches:
+    include:
+      - main
+      - '*'
 
   paths:
     exclude:
-      - .azure-pipelines/*.yml
-      - README.md
+    - .azure-pipelines/*.yml
+    - README.md
 
 pool:
   vmImage: ubuntu-latest
@@ -19,7 +21,7 @@ variables:
   - group: terraform-basic-variables
 
   - name: backendAzureRmKey
-    value: 'dev.tfstate'
+    value: 'deploy.tfstate'
 
 steps:
 - task: TerraformInstaller@1
